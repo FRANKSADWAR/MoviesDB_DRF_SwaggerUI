@@ -7,7 +7,7 @@ class Movies(models.Model):
     release_date = models.DateField()
     description = models.CharField(max_length=200)
     staring = models.TextField(max_length=500)
-
+    
     def __str__(self):
         return '%s %s'.format(self.name, self.description)
 
