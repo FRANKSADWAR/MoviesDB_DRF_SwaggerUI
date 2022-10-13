@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import Http404
-from movies.moviesdb import serializers
 from moviesdb.serializers import MoviesSerializer, SongsSerializer
 from moviesdb.models import Movies, Songs
 from rest_framework import viewsets
@@ -57,3 +56,27 @@ class MoviesDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)    
 
 
+
+class SongsList(APIView):
+    """
+    Get the list of all the songs using this API and also create a single record
+    """
+    def get(self,request,format=None):
+        songs = Songs.objects.all()
+        serializer = SongsSerializer(songs,many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        serializer = SongsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST) 
+
+class SongsDetail(APIView):
+    """
+    A detailed view of the songs
+    """        
+    def get_object(request,pk,format=None):
+        song = Songs.objects.get(pk=pk)
+        
