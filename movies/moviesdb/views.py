@@ -6,18 +6,20 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-# Create your views here.
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.decorators import action
 
 class MoviesList(APIView):
     """
     List all the movies or create a new movie
     """
+   
     def get(self,request, format=None):
         movies = Movies.objects.all()
         serializer = MoviesSerializer(movies,many=True)
         return Response(serializer.data)
 
+   
     def post(self,request):
         serializer = MoviesSerializer(data=request.data)
         if serializer.is_valid():
@@ -79,4 +81,3 @@ class SongsDetail(APIView):
     """        
     def get_object(request,pk,format=None):
         song = Songs.objects.get(pk=pk)
-        
