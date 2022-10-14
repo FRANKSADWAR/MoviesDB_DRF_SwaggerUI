@@ -37,8 +37,12 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('moviesdb/',include('moviesdb.urls')),
-    path('api_v1/',schema_view.with_ui('swagger',cache_timeout=0),name='api_v1'),
-    path('redoc/',schema_view.with_ui('redoc',cache_timeout=0),name='schema-redoc'),
+    #path('moviesdb/',include('moviesdb.urls')),
+    path('api/',include([
+        path('moviesdb/',include('moviesdb.urls'),name='moviesdb'),
+        path('swagger-ui/',schema_view.with_ui('swagger',cache_timeout=0),name='swagger-ui'),
+    ]))
+    #path('api_v1/',schema_view.with_ui('swagger',cache_timeout=0),name='api_v1'),
+    #path('redoc/',schema_view.with_ui('redoc',cache_timeout=0),name='schema-redoc'),
 
 ]
