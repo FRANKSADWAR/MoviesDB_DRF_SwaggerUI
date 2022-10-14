@@ -9,6 +9,6 @@ class MoviesSerializer(serializers.ModelSerializer):
 class SongsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Songs
-        fields = ['name','artists','sold','date']
+        fields ='__all__'
 
         
