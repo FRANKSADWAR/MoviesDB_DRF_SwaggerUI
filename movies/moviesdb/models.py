@@ -11,7 +11,7 @@ class Movies(models.Model):
     class Meta:
         verbose_name_plural = 'Movies'
     def __str__(self):
-        return 'Name :%s, Staring%s'.format(self.name, self.staring)
+        return self.name
 
 class Songs(models.Model):
     name = models.CharField(max_length=100)
@@ -22,5 +22,5 @@ class Songs(models.Model):
     class Meta:
         verbose_name_plural = 'Songs'
 
-    def __str__(self):
+    def __repr__(self):
         return 'Name %s,Artists %s'.format(self.name, self.artists)
